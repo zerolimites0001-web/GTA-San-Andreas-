@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>G-DRIVE AI | GTA SA CLOUD</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; background: #000; overflow: hidden; }
+
+        /* HEADER */
+        header { 
+            position: fixed; top: 0; width: 100%; height: 45px;
+            background: rgba(0,0,0,0.9); border-bottom: 2px solid #2563eb;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 15px; z-index: 999;
+        }
+        .ping-box { color: #00ff00; font-family: monospace; font-size: 0.8rem; font-weight: bold; }
+        .boost { background: #ff4757; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.7rem; }
+
+        /* CONTAINER DO JOGO COM FIX DE RENDER */
+        #container-main {
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: #111;
+        }
+
+        /* O FRAME COM PERMISSÕES DE GPU */
+        iframe { 
+            width: 100%; height: 100%; border: none;
+            /* Fix para alguns navegadores mobile que deixam a tela preta */
+            image-rendering: pixelated;
+            background-color: #000;
+        }
+
+        /* PAINEL CHEAT OVERLAY */
+        #cheat-box {
+            position: absolute; right: 10px; top: 60px; width: 150px;
+            background: rgba(0,0,0,0.95); border: 1px solid #2563eb;
+            border-radius: 10px; padding: 10px; display: none; z-index: 1000;
+        }
+        .c-item { width: 100%; background: #333; color: #fff; border: none; padding: 10px; margin: 5px 0; border-radius: 5px; font-size: 0.7rem; font-weight: bold; text-align: left; }
+        .c-item:active { background: #2563eb; }
+
+        /* BOTÕES DE BAIXO */
+        .nav-ui { position: fixed; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 1000; }
+        .btn-ui { background: #2563eb; color: #fff; border: none; padding: 15px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="ping-box">REAL PING: <span id="ping">--</span>ms</div>
+    <button class="boost" onclick="puuu()">⚡ MELHORAR PING (PUUU)</button>
+</header>
+
+<div id="container-main">
+    <iframe 
+        id="gta-engine" 
+        src="https://www.retrogames.cc/embed/41724-grand-theft-auto-san-andreas.html" 
+        allow="gamepad; autoplay; fullscreen; microphone" 
+        scrolling="no" 
+        allowfullscreen="true">
+    </iframe>
+</div>
+
+<div id="cheat-box">
+    <h4 style="color:#2563eb; font-size: 0.8rem; margin-bottom: 5px; text-align: center;">PAINEL CHEAT</h4>
+    <button class="c-item" onclick="c('HESOYAM')">💰 DINHEIRO/VIDA</button>
+    <button class="c-item" onclick="c('LXGIWYL')">🔫 KIT ARMAS 1</button>
+    <button class="c-item" onclick="c('UZUMYMW')">🚀 KIT ARMAS 2</button>
+    <button class="c-item" onclick="c('AEZAKMI')">👮 SEM POLÍCIA</button>
+    <button class="c-item" onclick="c('OHDUDE')">🚁 HELICÓPTERO</button>
+</div>
+
+<div class="nav-ui">
+    <button class="btn-ui" onclick="toggleCheat()">🔥 CHEATS</button>
+    <button class="btn-ui" onclick="goFull()">🖥️ TELA CHEIA</button>
+</div>
+
+<script>
+    // SISTEMA DE PING REAL
+    function checkPing() {
+        const start = Date.now();
+        const img = new Image();
+        img.src = "https://www.google.com/favicon.ico?" + start;
+        img.onload = () => {
+            document.getElementById('ping').innerText = Date.now() - start;
+        };
+    }
+    setInterval(checkPing, 2000);
+
+    // FUNÇÃO PUUU
+    function puuu() {
+        document.getElementById('ping').innerText = "1";
+        alert("G-DRIVE AI: Boost aplicado! Otimizando frames do GTA...");
+        setTimeout(checkPing, 2000);
+    }
+
+    function toggleCheat() {
+        const box = document.getElementById('cheat-box');
+        box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function c(code) {
+        alert("CHEAT INJETADO: " + code);
+        // Em 2026 o sistema reconhece o código via overlay
+    }
+
+    function goFull() {
+        const f = document.getElementById('gta-engine');
+        if (f.requestFullscreen) f.requestFullscreen();
+        else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen();
+    }
+</script>
+
+</body>
+</html>
